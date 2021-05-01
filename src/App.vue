@@ -15,23 +15,17 @@
 <script>
 import Navbar from '@/components/Ui/Navbar';
 import Footer from '@/components/Ui/Footer';
-import { mapActions } from 'vuex';
 export default {
   name: 'App',
   components:{ Navbar, Footer },
-  async mounted() {
-    this.fetchPosts(12);
-    this.fetchTodos(5);
-  },
-  data:() => ({
-    pages:[
+  data(){
+    return {
+      pages:[
       { path:'/posts', name:'Posts' },
       { path:'/todos', name:'Todos' }
-    ],
-  }),
-  methods:{
-    ...mapActions(['fetchTodos', 'fetchPosts'])
-  }
+      ],
+    }  
+  },
 };
 </script>
 

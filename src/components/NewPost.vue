@@ -1,17 +1,10 @@
 <template>
   <v-row no-gutters>
-    <v-col :cols="newPostCols">
-    <v-card class="mt-4" color="grey darken-3" tile>
-    <v-toolbar color="light-blue lighten-2">
-      <v-toolbar-title>Send to us your post</v-toolbar-title>
-    </v-toolbar>
-    <v-card-text>
-
+    <v-col class="pa-4">
     <v-text-field 
       v-model="title" 
       :error-messages="titleErrors" 
       label="Title" 
-      required
       :rules="rules"
       @input="$v.title.$touch()" 
       @blur="$v.title.$touch()">
@@ -23,24 +16,26 @@
       v-model="body" 
       :error-messages="bodyErrors" 
       label="Description" 
-      required
       :rules="rules"
       @input="$v.body.$touch()"
       @blur="$v.body.$touch()">
     </v-textarea>
-
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
+    
+    <v-card-actions class="d-flex justify-space-between mt-4">
       <v-btn
-        @click="submit"
+        @click="onCreate"
         color="success"
-        depressed
       >
-        Post
+      <v-icon>
+          mdi-share
+        </v-icon>
+      </v-btn>
+      <v-btn color="red darken-3" @click="status.value = false">
+        <v-icon>
+          mdi-close-box
+        </v-icon>
       </v-btn>
     </v-card-actions>
-  </v-card>
     </v-col>
   </v-row>
 </template>
@@ -53,6 +48,11 @@ import { mapActions } from 'vuex';
   export default {
     name: 'NewPost',
     mixins: [validationMixin],
+    props:{
+      status:{
+        type:Object
+      }
+    },
     data:() => ({
       title: '',
       body: '',
@@ -103,15 +103,11 @@ import { mapActions } from 'vuex';
     },
     methods:{
       ...mapActions(['createPost']),
-      submit:function(){
-        this.createPost({
-          title: this.title,
-          body: this.body,
-        })
-
+      onCreate: function(){
+        this.$emit('onCreate', {title:this.title, body:this.body})
+        this.status.value = false
         this.title = ''
         this.body = ''
-        
       }
     }
   }

@@ -24,7 +24,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn bottom color="red darken-3 white--text" @click="onDelete(post)">
-            Delete
+            <v-icon>mdi-delete</v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>

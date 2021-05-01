@@ -9,8 +9,8 @@
       <v-row no-gutters>
         <v-col class="pa-2">
           <Todo 
-            :todo="todo" 
             v-for="(todo) in todos" 
+            :todo="todo" 
             :key="todo.id"
             @onEdit="editTodo(todo)"
             @onDelete="removeTodo(todo)"

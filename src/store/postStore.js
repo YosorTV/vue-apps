@@ -22,8 +22,8 @@ export default {
     },
   },
   actions:{
-    async fetchPosts({ commit }, limit){
-      const { data } = await api.get(`posts?_limit=${limit}`)
+    async fetchPosts({ commit }, {page, limit}){
+      const { data } = await api.get(`posts?_page=${page}&_limit=${limit}`)
         return commit('GET_POSTS', data);
     },
     async createPost({commit}, payload){

@@ -37,8 +37,8 @@ export default{
       await api.delete(`todos/${payload.id}`);
         return commit('DELETE_TODO', payload)
     },
-    async editTodo({commit}, payload){
-      await api.put('todos')
+    async editTodo({commit}, {id, title}){
+      await api.put(`todos/${id}`, {title})
         return commit('EDIT_TODO', payload)
     }
   }
