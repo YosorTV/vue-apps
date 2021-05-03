@@ -27,7 +27,7 @@ export default {
         return commit('GET_POSTS', data);
     },
     async createPost({commit}, payload){
-      await api.post('posts');
+      await api.post('posts', payload);
         return commit('CREATE_POST', payload)
     },
     async deletePost({commit}, payload){

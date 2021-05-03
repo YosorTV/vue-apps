@@ -2,8 +2,8 @@
   <v-sheet dark>
     <v-container fluid fill-height>
       <v-row dense>
-        <v-col cols="3" class="mx-auto">
-          <AddTodo />
+        <v-col>
+          <AddTodo @onCreate="pushTodo" />
         </v-col>
       </v-row>
       <v-row no-gutters>
@@ -12,6 +12,7 @@
             v-for="(todo) in todos" 
             :todo="todo" 
             :key="todo.id"
+            @onSave="saveTodo(todo)"
             @onEdit="editTodo(todo)"
             @onDelete="removeTodo(todo)"
             />
@@ -29,23 +30,33 @@ import AddTodo from './AddTodo.vue';
 export default {
   name:'Todos',
   components: {Todo, AddTodo},
-  data:() => ({
-
-  }),
+  data(){
+    return{
+      page:1,
+      limit:10
+    }
+  },
+  created(){
+    this.fetchTodos({page:this.page, limit:this.limit})
+  },
+  methods:{
+    ...mapActions(['fetchTodos', 'deleteTodo', 'editTodo', 'createTodo']),
+    
+    pushTodo:function(todo){
+      this.createTodo(todo)
+    },
+    removeTodo:function(todo){
+      return this.deleteTodo(todo)
+    },
+    saveTodo:function(todo){
+      return this.editTodo(todo)
+    }
+  },
   computed:{
     ...mapGetters(['getTodos']),
     todos:function(){
       return this.getTodos
-    }
-  },
-  methods:{
-    ...mapActions(['deleteTodo', 'editTodo']),
-    removeTodo:function(todo){
-      return this.deleteTodo(todo)
     },
-    editTodo:function(todo){
-      return this.editTodo(todo)
-    }
-  }
+  },
 }
 </script>

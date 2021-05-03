@@ -4,7 +4,7 @@
   <v-toolbar dark>
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     <v-row>
-      <v-toolbar-title class="title font-weight-light mx-auto">Vue Apps</v-toolbar-title>
+      <v-toolbar-title class="mx-auto"><h1 class="display-1 font-weight-thin">JsonPlaceHolder</h1></v-toolbar-title>
     </v-row>
     <v-btn text tile to="/">
       Home
@@ -43,13 +43,15 @@ export default {
       required:true
     },
   },
-  data:() => ({
+  data(){
+  return {
     group:false,
     drawer:false,
     icons:{
       mdiMessageText
+      }
     }
-  }),
+  },
 }
 </script>
 
